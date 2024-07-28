@@ -8,6 +8,6 @@ class ManagerController extends Controller
 {
     function index()
     {
-        return view('')
+        return view('index');
     }
 }
