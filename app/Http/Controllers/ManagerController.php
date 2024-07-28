@@ -10,4 +10,9 @@ class ManagerController extends Controller
     {
         return view('index');
     }
+
+    function create()
+    {
+        return view('create_product');
+    }
 }
