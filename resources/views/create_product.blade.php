@@ -28,60 +28,62 @@
 
                             <div class="card mt-4" id="basic-info">
                                 <div class="card-header">
-                                    <h5>Basic Info</h5>
+                                    <h5>Criar produto</h5>
                                 </div>
                                 <div class="card-body pt-0">
                                     <div class="row">
-                                        <div class="col-6">
-                                            <label class="form-label">First Name</label>
+                                        <div class="col-lg-6 col-sm-12">
+                                            <label class="form-label text-danger">Nome do produto *</label>
                                             <div class="input-group">
                                                 <input id="firstName" name="firstName" class="form-control"
-                                                    type="text" placeholder="Alec" required="required"
-                                                    onfocus="focused(this)" onfocusout="defocused(this)">
+                                                    type="text" placeholder="Digite aqui..." maxlength="50">
                                             </div>
                                         </div>
-                                        <div class="col-6">
-                                            <label class="form-label">Last Name</label>
+                                        <div class="col-lg-2 col-sm-12">
+                                            <label class="form-label text-danger">Unidade de medida *</label>
+                                            <select class="form-control" id="">
+                                                <option>Litro</option>
+                                                <option>Quilograma</option>
+                                                <option>Unidade</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-12">
+                                            <label class="form-label">Unidade</label>
                                             <div class="input-group">
-                                                <input id="lastName" name="lastName" class="form-control"
-                                                    type="text" placeholder="Thompson" required="required"
-                                                    onfocus="focused(this)" onfocusout="defocused(this)">
+                                                <input id="" name="" class="form-control"
+                                                    type="number" placeholder="Digite aqui...">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-6">
-                                            <label class="form-label mt-4">Email</label>
-                                            <div class="input-group">
-                                                <input id="email" name="email" class="form-control"
-                                                    type="email" placeholder="example@email.com"
-                                                    onfocus="focused(this)" onfocusout="defocused(this)">
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <label class="form-label mt-4">Confirmation Email</label>
+                                        <div class="col-lg-4">
+                                            <label class="form-label text-danger">Preço *</label>
                                             <div class="input-group">
                                                 <input id="confirmation" name="confirmation" class="form-control"
-                                                    type="email" placeholder="example@email.com"
-                                                    onfocus="focused(this)" onfocusout="defocused(this)">
+                                                    type="text" placeholder="Digite aqui..">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label class="form-label mt-4">Your location</label>
+                                        <div class="col-lg-2">
+                                            <label class="form-label text-danger">Prduto perecível *</label>
                                             <div class="input-group">
-                                                <input id="location" name="location" class="form-control"
-                                                    type="text" placeholder="Sydney, A" onfocus="focused(this)"
-                                                    onfocusout="defocused(this)">
+                                                <select class="form-control" id="exampleFormControlSelect1">
+                                                    <option>Sim</option>
+                                                    <option>Não</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="col-6">
-                                            <label class="form-label mt-4">Phone Number</label>
+                                        <div class="col-lg-3">
+                                            <label class="form-label text-danger">Data de validade *</label>
                                             <div class="input-group">
-                                                <input id="phone" name="phone" class="form-control"
-                                                    type="number" placeholder="+40 735 631 620"
-                                                    onfocus="focused(this)" onfocusout="defocused(this)">
+                                                <input id="confirmation" name="confirmation" class="form-control"
+                                                    type="text" placeholder="Digite aqui..">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label class="form-label text-danger">Data de fabricação *</label>
+                                            <div class="input-group">
+                                                <input id="confirmation" name="confirmation" class="form-control"
+                                                    type="text" placeholder="Digite aqui..">
                                             </div>
                                         </div>
                                     </div>
