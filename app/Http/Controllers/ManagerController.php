@@ -11,8 +11,14 @@ class ManagerController extends Controller
         return view('index');
     }
 
-    function create()
+    function create_view()
     {
         return view('create_product');
+    }
+
+    function create(Request $request)
+    {
+
+        dd($request);
     }
 }
