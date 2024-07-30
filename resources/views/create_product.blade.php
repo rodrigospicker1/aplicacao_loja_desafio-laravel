@@ -116,7 +116,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
-                                                <label class="form-label text-danger">Data de validade *</label>
+                                                <label class="form-label text-danger" id="data_validade_label">Data de validade *</label>
                                                 <div class="input-group">
                                                     <input id="data_validade" name="data_validade" class="form-control mascara_data @error('data_validade') is-invalid @enderror"
                                                         type="text" placeholder="__/__/____" value="{{ old('data_validade') }}">
@@ -169,48 +169,16 @@
     </body>
 </x-html.html>
 
-@if (Session::has('success'))
-    @if (Session::has('produtos'))  
-        <?php $produtos =  json_encode(Session::get('produtos')) ?>
-        <script>
-            let produtos_existentes = localStorage.getItem('produtos');
-            produtos_existentes = jQuery.parseJSON(produtos_existentes);
-            let produto_novo = jQuery.parseJSON(`{!! $produtos !!}`)
-            let lista_produtos = [];
-            if(produtos_existentes != null){
-                console.log(produtos_existentes)
-                console.log(produto_novo)
-                produtos_existentes.forEach(element => {
-                    if( '{{ isset($id) }}' )
-                    {
-                        if( element.id == '{{ $id }}' )
-                        {
-                            lista_produtos.push(produto_novo)
-                        }else{
-                            lista_produtos.push(element)
-                        }
-                    }else{
-                        lista_produtos.push(element)
-                    }
-                });
-            }
-            if( $("#id_produto").val() != "" ){
-                lista_produtos.push(produto_novo)
-            }
-            localStorage.setItem("produtos", JSON.stringify(lista_produtos) );
-            window.location = "{{ url('/') }}";
-        </script>
-    @endif  
-@endif
-
 @if (isset($id) && $id != "")
     <script>
         produtos_existentes = localStorage.getItem('produtos');
         produtos_existentes = jQuery.parseJSON(produtos_existentes);
+        let achou = false
         if(produtos_existentes != null){
             produtos_existentes.forEach(element => {
                 if(element.id == "{{ $id }}")
                 {
+                    achou = true
                     $("#text_button_submit").html("Atualizar")
                     $("#id_produto").val(element.id)
                     $("#nome_produto").val(element.nome_produto)
@@ -223,7 +191,45 @@
                 }
             });
         }
+        if(achou == false)
+        {
+            window.location = "{{ url('/') }}";
+        }
     </script>
+@endif
+
+@if (Session::has('success'))
+    @if (Session::has('produtos'))  
+        <?php $produtos =  json_encode(Session::get('produtos')) ?>
+        <script>
+            let produtos_existentes = localStorage.getItem('produtos');
+            produtos_existentes = jQuery.parseJSON(produtos_existentes);
+            let produto_novo = jQuery.parseJSON(`{!! $produtos !!}`)
+            let lista_produtos = [];
+            if(produtos_existentes != null){
+                console.log(produtos_existentes)
+                console.log(produto_novo)
+                produtos_existentes.forEach(element => {
+                    if( $("#id_produto").val() != "" )
+                    {
+                        if( element.id == $("#id_produto").val() )
+                        {
+                            lista_produtos.push(produto_novo)
+                        }else{
+                            lista_produtos.push(element)
+                        }
+                    }else{
+                        lista_produtos.push(element)
+                    }
+                });
+            }
+            if( $("#id_produto").val() == "" ){
+                lista_produtos.push(produto_novo)
+            }
+            localStorage.setItem("produtos", JSON.stringify(lista_produtos) );
+            window.location = "{{ url('/') }}";
+        </script>
+    @endif  
 @endif
 
 
@@ -239,6 +245,23 @@
 
   $("#tipo_unidade_medida").on("change", function(){
     filtro_unidade_medida();
+  })
+
+  $("#perecivel").on("change", function(){
+    if($(this).val() == "1")
+    {
+        $("#data_validade_label").removeClass("text-danger")
+        $("#data_validade_label").addClass("text-danger")
+        $("#data_validade_label").html("Data de validade *")
+    }else
+    {
+        $("#data_validade_label").removeClass("text-danger")
+        $("#data_validade_label").html("Data de validade")
+    }
+  })
+
+  $("#text_button_submit").on("click", function(){
+    $("#form_cricao_produto :input").prop("readonly", true);
   })
 
   function filtro_unidade_medida()

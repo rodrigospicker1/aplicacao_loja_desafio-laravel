@@ -81,7 +81,7 @@ class ManagerController extends Controller
 
         $object = [
             'id' => $id_produto,
-            'nome_produto' => $request->nome_produto,
+            'nome_produto' => strtolower($request->nome_produto),
             'tipo_unidade_medida' => $request->tipo_unidade_medida,
             'preco' => $preco_original,
             'perecivel' => $request->perecivel,
