@@ -3,24 +3,10 @@
     <body class="g-sidenav-show  bg-gray-100">
         <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
-            <div class="">
+            <div class="container_main" style="display:flex;flex-direction:row">
 
-                <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Navbar</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                            <div class="navbar-nav">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                                <a class="nav-link" href="#">Features</a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
+                <x-navbar.navbar-left>
+                </x-navbar.navbar-left>
                 
 
                 @if (Session::has('msg'))
@@ -104,7 +90,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
-                                                <label class="form-label text-danger">Prduto perecível *</label>
+                                                <label class="form-label text-danger">Produto perecível *</label>
                                                 <div class="input-group">
                                                     <select class="form-control @error('perecivel') is-invalid @enderror" id="perecivel" name="perecivel">
                                                         <option @if ( old('perecivel') != NULL && old('perecivel') == "1") selected @endif value="1">Sim</option>
@@ -139,12 +125,12 @@
 
                                         <div class="row justify-content-between">
                                             <div class="col-lg-2 col-sm-12 text-center">
+                                                <button type="submit" id="text_button_submit" class="btn bg-gradient-faded-success w-100 my-6 mb-2 text-white">Salvar</button>
+                                            </div>
+                                            <div class="col-lg-2 col-sm-12 text-center">
                                                 <a href="{{ route('index') }}">
                                                 <button type="button" class="btn bg-gradient-faded-danger w-100 my-6 mb-2 text-white">Cancelar</button>
                                                 </a>
-                                            </div>
-                                            <div class="col-lg-2 col-sm-12 text-center">
-                                                <button type="submit" id="text_button_submit" class="btn bg-gradient-faded-success w-100 my-6 mb-2 text-white">Salvar</button>
                                             </div>
                                         </div>
 

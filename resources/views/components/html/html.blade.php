@@ -30,6 +30,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" integrity="sha512-Rdk63VC+1UYzGSgd3u2iadi0joUrcwX0IWp2rTh6KXFoAmgOjRS99Vynz1lJPT8dLjvo6JZOqpAHJyfCEZ5KoA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
+<style>
+  @media (max-width: 600px) {
+      .container_main{
+        flex-direction: column !important;
+      }
+      #navbar_left{
+          height: 10vh !important;
+      }
+  }
+</style>
+
 <div class="small_messages" id="small_messages" style="position: fixed; right: 0; top: 0; z-index:999">
 
 </div>
