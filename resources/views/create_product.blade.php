@@ -21,6 +21,29 @@
                         </div>
                     </div>
                 </nav>
+                
+
+                @if (Session::has('msg'))
+                    @foreach (Session::get('msg') as  $erro)
+                            <script>
+                                let message = "{{$erro}}"
+                                $("#small_messages").append(
+                                    `
+                                    <div class="m-2" id="error_message">
+                                    <div class="toast bg-danger show p-2" role="alert" style="" aria-live="assertive" id="successToast" aria-atomic="true">
+                                        <div class="toast-header bg-danger border-0" style="" >
+                                            <span class="me-auto font-weight-bold text-white" id="span_success_not">`+message+`</span>
+                                            <i class="fas fa-times text-weight-bold text-md ms-3 cursor-pointer text-white" data-bs-dismiss="toast" aria-label="Close"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                    `
+                                );
+                            </script>
+                    @endforeach
+                @endif
+
+
 
                 <div class="container-fluid my-3 py-3">
                     <div class="row mb-5">
@@ -33,13 +56,14 @@
                                 
                                 <form action="{{ route('create') }}" method="POST" id="form_cricao_produto">
                                     @csrf
+                                    <input type="hidden" name="id_produto" id="id_produto">
                                     <div class="card-body pt-0">
                                         <div class="row">
                                             <div class="col-lg-6 col-sm-12">
                                                 <label class="form-label text-danger">Nome do produto *</label>
                                                 <div class="input-group">
                                                     <input id="nome_produto" name="nome_produto" class="form-control @error('nome_produto') is-invalid @enderror"
-                                                        type="text" placeholder="Digite aqui..." maxlength="50">
+                                                        type="text" placeholder="Digite aqui..." value="{{ old('nome_produto') }}" maxlength="50">
                                                     @error('nome_produto')
                                                         <div id="validationServerUsernameFeedback" class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
@@ -48,9 +72,9 @@
                                             <div class="col-lg-2 col-sm-12">
                                                 <label class="form-label text-danger">Unidade de medida *</label>
                                                 <select class="form-control @error('tipo_unidade_medida') is-invalid @enderror" id="tipo_unidade_medida" name="tipo_unidade_medida">
-                                                    <option value="litro" >Litro</option>
-                                                    <option value="quilograma" >Quilograma</option>
-                                                    <option value="unidade" >Unidade</option>
+                                                    <option @if ( old('tipo_unidade_medida') != NULL && old('tipo_unidade_medida') == "litro") selected @endif value="litro" >Litro</option>
+                                                    <option @if ( old('tipo_unidade_medida') != NULL && old('tipo_unidade_medida') == "quilograma") selected @endif value="quilograma" >Quilograma</option>
+                                                    <option @if ( old('tipo_unidade_medida') != NULL && old('tipo_unidade_medida') == "unidade") selected @endif value="unidade" >Unidade</option>
                                                 </select>
                                                 @error('tipo_unidade_medida')
                                                     <div id="validationServerUsernameFeedback" class="invalid-feedback">{{ $message }}</div>
@@ -59,7 +83,7 @@
                                             <div class="col-lg-4 col-sm-12">
                                                 <label class="form-label">Unidade</label>
                                                 <div class="input-group mb-3" style="justify-content: flex-end">
-                                                    <input type="text" class="form-control @error('quant_unidade_medida') is-invalid @enderror" aria-label="" id="quant_unidade_medida" name="quant_unidade_medida">
+                                                    <input type="text" value="{{ old('quant_unidade_medida') }}" class="form-control @error('quant_unidade_medida') is-invalid @enderror" aria-label="" id="quant_unidade_medida" name="quant_unidade_medida">
                                                     <span class="input-group-text" id="addon_type_unit" style="z-index:9">.00</span>
                                                 </div>
                                                 @error('quant_unidade_medida')
@@ -70,9 +94,10 @@
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <label class="form-label text-danger">Preço *</label>
-                                                <div class="input-group">
-                                                    <input id="preco" name="preco" class="form-control @error('preco') is-invalid @enderror"
-                                                        type="text" placeholder="Digite aqui..">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="">R$</span>
+                                                    <input id="preco" name="preco" class="form-control mascara_moeda @error('preco') is-invalid @enderror"
+                                                        type="text" placeholder="0,00" value="{{ old('preco') }}" maxlength="20">
                                                         @error('preco')
                                                             <div id="validationServerUsernameFeedback" class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
@@ -82,8 +107,8 @@
                                                 <label class="form-label text-danger">Prduto perecível *</label>
                                                 <div class="input-group">
                                                     <select class="form-control @error('perecivel') is-invalid @enderror" id="perecivel" name="perecivel">
-                                                        <option>Sim</option>
-                                                        <option>Não</option>
+                                                        <option @if ( old('perecivel') != NULL && old('perecivel') == "1") selected @endif value="1">Sim</option>
+                                                        <option @if ( old('perecivel') != NULL && old('perecivel') == "0") selected @endif value="0">Não</option>
                                                     </select>
                                                     @error('perecivel')
                                                         <div id="validationServerUsernameFeedback" class="invalid-feedback">{{ $message }}</div>
@@ -93,8 +118,8 @@
                                             <div class="col-lg-3">
                                                 <label class="form-label text-danger">Data de validade *</label>
                                                 <div class="input-group">
-                                                    <input id="data_validade" name="data_validade" class="form-control @error('data_validade') is-invalid @enderror"
-                                                        type="text" placeholder="__/__/____">
+                                                    <input id="data_validade" name="data_validade" class="form-control mascara_data @error('data_validade') is-invalid @enderror"
+                                                        type="text" placeholder="__/__/____" value="{{ old('data_validade') }}">
                                                     @error('data_validade')
                                                         <div id="validationServerUsernameFeedback" class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
@@ -103,9 +128,9 @@
                                             <div class="col-lg-3">
                                                 <label class="form-label text-danger">Data de fabricação *</label>
                                                 <div class="input-group">
-                                                    <input id="data_fabricação" name="data_fabricação" class="form-control @error('data_fabricação') is-invalid @enderror"
-                                                        type="text" placeholder="__/__/____">
-                                                    @error('data_fabricação')
+                                                    <input id="data_fabricacao" name="data_fabricacao" class="form-control mascara_data @error('data_fabricacao') is-invalid @enderror"
+                                                        type="text" placeholder="__/__/____" value="{{ old('data_fabricacao') }}">
+                                                    @error('data_fabricacao')
                                                         <div id="validationServerUsernameFeedback" class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -119,7 +144,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-sm-12 text-center">
-                                                <button type="submit" class="btn bg-gradient-faded-success w-100 my-6 mb-2 text-white">Salvar</button>
+                                                <button type="submit" id="text_button_submit" class="btn bg-gradient-faded-success w-100 my-6 mb-2 text-white">Salvar</button>
                                             </div>
                                         </div>
 
@@ -144,13 +169,72 @@
     </body>
 </x-html.html>
 
+@if (Session::has('success'))
+    @if (Session::has('produtos'))  
+        <?php $produtos =  json_encode(Session::get('produtos')) ?>
+        <script>
+            let produtos_existentes = localStorage.getItem('produtos');
+            produtos_existentes = jQuery.parseJSON(produtos_existentes);
+            let produto_novo = jQuery.parseJSON(`{!! $produtos !!}`)
+            let lista_produtos = [];
+            if(produtos_existentes != null){
+                console.log(produtos_existentes)
+                console.log(produto_novo)
+                produtos_existentes.forEach(element => {
+                    if( '{{ isset($id) }}' )
+                    {
+                        if( element.id == '{{ $id }}' )
+                        {
+                            lista_produtos.push(produto_novo)
+                        }else{
+                            lista_produtos.push(element)
+                        }
+                    }else{
+                        lista_produtos.push(element)
+                    }
+                });
+            }
+            if( $("#id_produto").val() != "" ){
+                lista_produtos.push(produto_novo)
+            }
+            localStorage.setItem("produtos", JSON.stringify(lista_produtos) );
+            window.location = "{{ url('/') }}";
+        </script>
+    @endif  
+@endif
+
+@if (isset($id) && $id != "")
+    <script>
+        produtos_existentes = localStorage.getItem('produtos');
+        produtos_existentes = jQuery.parseJSON(produtos_existentes);
+        if(produtos_existentes != null){
+            produtos_existentes.forEach(element => {
+                if(element.id == "{{ $id }}")
+                {
+                    $("#text_button_submit").html("Atualizar")
+                    $("#id_produto").val(element.id)
+                    $("#nome_produto").val(element.nome_produto)
+                    $("#tipo_unidade_medida").val(element.tipo_unidade_medida)
+                    $("#preco").val(element.preco)
+                    $("#perecivel").val(element.perecivel)
+                    $("#quant_unidade_medida").val(element.quant_unidade_medida)
+                    $("#data_validade").val(element.data_validade)
+                    $("#data_fabricacao").val(element.data_fabricacao)
+                }
+            });
+        }
+    </script>
+@endif
+
+
+
 <script>
     
   $(document).ready(function()
   {
     filtro_unidade_medida()
-    $("#data_fabricação").mask("99/99/9999");
-    $("#data_validade").mask("99/99/9999");
+    $(".mascara_data").mask("99/99/9999");
+    $(".mascara_moeda").maskMoney({allowNegative: false, thousands: '.', decimal: ',' });
   });
 
   $("#tipo_unidade_medida").on("change", function(){
@@ -175,5 +259,6 @@
     }
     $("#addon_type_unit").html(tipo_unidade)
   }
+
 
 </script>
