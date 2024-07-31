@@ -1,9 +1,3 @@
-## Fotos 
-
-![image](https://github.com/user-attachments/assets/d8bc16fb-be74-4510-a1c8-a28f678e2d02)
-
-![image](https://github.com/user-attachments/assets/37131fbd-cd92-4647-9166-da909c086aad)
-
 ## Rodar projeto
 
 - Clica no botão <code> no menu repositório
@@ -14,5 +8,14 @@
 - Dentro do editor do codespace abrir terminal e rodar `composer install`
 - Duplicar arquivo `.env.example` e renomear para somente `.env`
 - No `.env ` troque as seguintes variáveis => APP_LOCALE=pt_BR (Pegar a validações dos campos em português)
+- Abrir pasta `bootstrap/app.php` e adicionar a linha `$middleware->trustProxies(at: '*');` nos middlewares
+- ![image](https://github.com/user-attachments/assets/7cde1178-3919-4d36-b840-5ba27e7d7c84)
 - Rode o comando `php artisan key:generate` e `php artisan migrate` 
 - rodar `php artisan serve`
+
+## Fotos 
+
+![image](https://github.com/user-attachments/assets/d8bc16fb-be74-4510-a1c8-a28f678e2d02)
+
+![image](https://github.com/user-attachments/assets/37131fbd-cd92-4647-9166-da909c086aad)
+
