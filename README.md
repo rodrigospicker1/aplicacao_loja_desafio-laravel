@@ -1,3 +1,6 @@
+## LINK DO PROJETO NO CODESPACE PRONTO: 
+https://fantastic-space-journey-jg76vwqwqr9fpp7v-8000.app.github.dev
+
 ## Rodar projeto
 
 - Clica no botão <code> no menu repositório
